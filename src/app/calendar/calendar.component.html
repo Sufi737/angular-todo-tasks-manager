@@ -1,0 +1,4 @@
+<div>
+    <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+    <a [routerLink]="['tasks-list', {date: selectedDate}]">Tasks List</a>
+</div>
