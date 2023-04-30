@@ -2,7 +2,7 @@
     <div class="todo-list">
       <form (ngSubmit)="addTask(taskNgForm)" #taskNgForm="ngForm">
         <div class="input-group">
-          <input readonly name="date" [matDatepicker]="picker" [(ngModel)]="newTaskDto.title" />
+          <input readonly name="date" [matDatepicker]="picker" [(ngModel)]="newTaskDto.date" />
           <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </div>
@@ -22,7 +22,7 @@
 
       </form>
       <table>
-        <tr *ngFor="let task of tasks; let i = index" [class.even]="i%2==0" [class.odd]="i%2!=0">
+        <tr *ngFor="let task of tasks | async; let i = index" [class.even]="i%2==0" [class.odd]="i%2!=0">
           <td>
             <p [class.is-done]="task.isDone">
               {{task.title}}

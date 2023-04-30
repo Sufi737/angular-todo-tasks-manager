@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route } from '@angular/router';
 import { NewTaskDTO } from './NewTaskDTO.dto';
 import { Task } from './Task';
+import { TaskService } from './task.service';
 
 @Component({
   selector: 'task-list',
@@ -11,21 +12,16 @@ import { Task } from './Task';
 })
 export class TaskListComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private taskService: TaskService) {}
 
   newTaskDto = new NewTaskDTO(); // in the constructor default values are set so no need to provide initial values here
+  tasks  = this.taskService.getAllTasks();
   
   ngOnInit(): void {
     this.newTaskDto.date = new Date(this.route.snapshot.params['date']);
   }
 
-  tasks: Task[] = [
-    new Task("Vist Ann"),
-    new Task("Call dad"),
-    new Task("Go to gym"),
-    new Task("Wash the dishes"),
-    new Task("Shop for the party")
-  ];
+  
 
   addTask(taskNgForm: NgForm) {
 
@@ -37,14 +33,14 @@ export class TaskListComponent implements OnInit {
       return;
     }
 
-    this.tasks.push(new Task(this.newTaskDto.title));
+    this.taskService.addTask(this.newTaskDto);
     taskNgForm.reset({date: this.newTaskDto.date});
   }
 
   removeTask(existingTask: Task) {
     var confirmed = confirm("Are you sure?");
     if (confirmed) {
-      this.tasks = this.tasks.filter(task => task != existingTask);
+      this.taskService.removeTask(existingTask);
     }
   }
 }

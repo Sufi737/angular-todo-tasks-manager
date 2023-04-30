@@ -1,10 +1,11 @@
 export class Task {
 
   title: string;
-  isDone = false;
+  isDone: boolean = false;
 
-  constructor(public taskTitle: string) {
+  constructor(public taskTitle: string, public done: boolean) {
     this.title = taskTitle;
+    this.isDone = done;
   }
 
   toggleDone() {
