@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,6 +7,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarModule } from './calendar/calendar.module';
 import { TaskListModule } from './task-list/task-list.module';
 import { Router, RouterModule } from '@angular/router';
+import { GlobalErrorHandler } from './error.handler';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { Router, RouterModule } from '@angular/router';
     CalendarModule,
     RouterModule
   ],
-  providers: [],
+  providers: [{provide: ErrorHandler, useClass: GlobalErrorHandler}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
